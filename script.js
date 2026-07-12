@@ -30,7 +30,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
     });
 
 // 4 Roboflow REST API 방식 주소 매칭 (버전은 v2이므로 '2'가 맞습니다!)
-const ROBOFLOW_URL = `https://detect.roboflow.com/${ROBOFLOW_MODEL}/2?api_key=${ROBOFLOW_API_KEY}`;
+const ROBOFLOW_URL = `https://serverless.roboflow.com/${ROBOFLOW_MODEL}/2?api_key=${ROBOFLOW_API_KEY}`;
 
 // 모델 로드 과정이 없으니 바로 감지 시작
 setInterval(startDetection, 1000);
