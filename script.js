@@ -14,7 +14,7 @@ const soundCowbell = new Audio('cowbell.wav');
 
 // 2️⃣ Roboflow API 정보 입력
 // 16번째 줄을 아래의 프라이빗 키로 변경하세요! (파워셸에서 성공했던 그 키입니다)
-const ROBOFLOW_API_KEY = "cYWcy3cIaSBXfTZxF3W0";
+const ROBOFLOW_API_KEY = "cVWcy3cIaSBXfTZxF3W0";
 const ROBOFLOW_MODEL = "hand-fist-computer-3b0t3";       // 👈 대시보드에 적힌 실제 프로젝트 ID
 
 let previousGesture = "";
