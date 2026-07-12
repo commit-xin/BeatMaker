@@ -12,9 +12,9 @@ const soundKick = new Audio('kick.wav');
 const soundClap = new Audio('clap.wav');
 const soundCowbell = new Audio('cowbell.wav');
 
-// 2️⃣ 팀원분이 전달해준 정확한 Roboflow API 정보 입력
+// 2️⃣ Roboflow API 정보 입력
 const ROBOFLOW_API_KEY = "cVWcy3claSBXfTZxF3W0";
-const ROBOFLOW_MODEL = "hand-fist-computer-3b0t3"; 
+const ROBOFLOW_MODEL = "rfdetr-medium";
 
 let previousGesture = "";
 let roboflowModel;
