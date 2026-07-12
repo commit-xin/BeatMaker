@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- index.html 파일의 <head>와 </head> 사이에 이 코드를 쏙 넣어주세요! -->
+<script src="https://cdn.jsdelivr.net/npm/roboflow@0.2.29/deploy/roboflow.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>손 모양 악기 연주기</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>🖐️ Beate Maker 🎸</h1>
+    <p>웹캠에 주먹, 보, V-사인을 보여주세요!</p>
+
+    <!-- 웹캠 화면이 나올 공간 -->
+    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+  <!-- 비디오 태그 근처에 아래 한 줄 추가 -->
+  <div id="emoji-display"></div>
+
+
+    <!-- 이미지를 캡처해서 AI로 보낼 보이지 않는 도화지 -->
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
