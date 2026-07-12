@@ -13,7 +13,7 @@ const soundClap = new Audio('clap.wav');
 const soundCowbell = new Audio('cowbell.wav');
 
 // 2️⃣ Roboflow API 정보 입력
-const ROBOFLOW_API_KEY = "rf_XizjrI5GyRWSKUt9fl7llZEz4S2";
+const ROBOFLOW_API_KEY = "rf_XizjrI5GyRWSKUzt9fl7llZEz4S2";
 const ROBOFLOW_MODEL = "hand-fist-computer-3b0t3";       // 👈 대시보드에 적힌 실제 프로젝트 ID
 
 let previousGesture = "";
