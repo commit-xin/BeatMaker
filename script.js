@@ -13,8 +13,8 @@ const soundClap = new Audio('clap.wav');
 const soundCowbell = new Audio('cowbell.wav');
 
 // 2️⃣ Roboflow API 정보 입력
-const ROBOFLOW_API_KEY = "cVWcy3claSBXfTZxF3W0";
-const ROBOFLOW_MODEL = "rfdetr-medium";
+const ROBOFLOW_API_KEY = "rf_XizjrI5GyRWSKUzt9fl7llZEz4S2";  // ✅ 이미 올바르게 바꾸심
+const ROBOFLOW_MODEL = "hand-fist-computer-3b0t3";  // ✅ 실제 프로젝트 슬러그로 수정
 
 let previousGesture = "";
 let roboflowModel;
@@ -28,50 +28,50 @@ navigator.mediaDevices.getUserMedia({ video: true })
         console.error("카메라를 켤 수 없습니다:", err);
     });
 
-// 4️⃣ Roboflow 공식 SDK 방식으로 AI 모델 로드 (CORS/401 에러 해결)
-roboflow.auth({
-    clientToken: ROBOFLOW_API_KEY
-}).load({
-    model: ROBOFLOW_MODEL,
-    version: 1
-}).then(function(model) {
-    console.log("Roboflow AI 모델 로드 완료!");
-    roboflowModel = model;
-    
-    // 모델 로드가 끝나면 1초(1000ms)마다 손 모양 인식 시작
-    setInterval(startDetection, 1000);
-});
+// 4️⃣ Roboflow REST API 방식으로 손 모양 인식 (SDK 없이 직접 요청)
+const ROBOFLOW_URL = `https://serverless.roboflow.com/${ROBOFLOW_MODEL}/2?api_key=${ROBOFLOW_API_KEY}`;
+
+// 모델 로드 과정이 없으니 바로 감지 시작
+setInterval(startDetection, 1000);
 
 // 5️⃣ 손 모양 인식 및 이모지/소리 출력 함수
 function startDetection() {
-    if (!roboflowModel) return;
+    // 캔버스에 현재 웹캠 화면을 그리기
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // 캠 화면 데이터를 AI 모델로 전송
-    roboflowModel.detect(video).then(function(predictions) {
-        if (predictions && predictions.length > 0) {
+    // 캔버스 이미지를 base64 문자열로 변환 (data:image/jpeg;base64, 부분 제거)
+    const base64Image = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+
+    // Roboflow API로 이미지 전송
+    fetch(ROBOFLOW_URL, {
+        method: "POST",
+        body: base64Image,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    })
+    .then(response => response.json())
+    .then(predictions => {
+        if (predictions && predictions.predictions && predictions.predictions.length > 0) {
             // 가장 확률이 높은 첫 번째 인식 클래스명 가져오기
-            const currentGesture = predictions[0].class;
+            const currentGesture = predictions.predictions[0].class;
             console.log("인식된 손 모양:", currentGesture);
 
             // 손 모양이 새로 바뀌었을 때만 소리와 이모지 실행
-            // 손 모양이 새로 바뀌었을 때만 소리와 이모지 실행
             if (currentGesture !== previousGesture) {
-
-                // ⭐️ 팀원분이 보내주신 이름(대소문자)과 완벽하게 일치시켰습니다!
                 if (currentGesture === "fist") {
                     soundKick.play();
-                    emojiDisplay.innerText = "🥁"; 
+                    emojiDisplay.innerText = "🤜";
                 } else if (currentGesture === "Paper") {
                     soundClap.play();
-                    emojiDisplay.innerText = "👏"; 
+                    emojiDisplay.innerText = "🖐️";
                 } else if (currentGesture === "scissors") {
                     soundCowbell.play();
-                    emojiDisplay.innerText = "🔔"; 
+                    emojiDisplay.innerText = "✌️";
                 }
                 previousGesture = currentGesture;
             }
         }
-    }).catch(function(err) {
+    })
+    .catch(err => {
         console.error("AI 분석 중 에러 발생:", err);
     });
 }
