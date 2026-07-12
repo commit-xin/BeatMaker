@@ -13,8 +13,8 @@ const soundClap = new Audio('clap.wav');
 const soundCowbell = new Audio('cowbell.wav');
 
 // 2️⃣ Roboflow API 정보 입력
-const ROBOFLOW_API_KEY = "rf_XizjrI5GyRWSKUzt9fl7llZEz4S2";  // ✅ 이미 올바르게 바꾸심
-const ROBOFLOW_MODEL = "hand-fist-computer-3b0t3";  // ✅ 실제 프로젝트 슬러그로 수정
+const ROBOFLOW_API_KEY = "cVWcy3claSBXfTZxF3W0"; // 👈 질문자님 말씀대로 rf_ 키가 정답!
+const ROBOFLOW_MODEL = "hand-fist-computer-3b0t3";       // 👈 대시보드에 적힌 실제 프로젝트 ID
 
 let previousGesture = "";
 let roboflowModel;
@@ -28,7 +28,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
         console.error("카메라를 켤 수 없습니다:", err);
     });
 
-// 4️⃣ Roboflow REST API 방식으로 손 모양 인식 (SDK 없이 직접 요청)
+// 4 Roboflow REST API 방식 주소 매칭 (버전은 v2이므로 '2'가 맞습니다!)
 const ROBOFLOW_URL = `https://serverless.roboflow.com/${ROBOFLOW_MODEL}/2?api_key=${ROBOFLOW_API_KEY}`;
 
 // 모델 로드 과정이 없으니 바로 감지 시작
